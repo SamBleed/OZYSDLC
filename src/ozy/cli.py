@@ -26,7 +26,7 @@ def main():
 @click.option("--output", "output_file", type=click.Path(path_type=Path), help="Write output to file")
 def run_cmd(path, no_secrets, no_deps, skip_code, verbose, json_output, output_file):
     """Run security scans on the project"""
-    run(
+    exit_code = run(
         path=path,
         scan_secrets=not no_secrets,
         scan_deps=not no_deps,
