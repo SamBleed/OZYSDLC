@@ -59,10 +59,15 @@ class ConsoleReporter(Reporter):
             if result.error:
                 status = "⚠️ "
                 # Improved error reporting for UX
-                error_msg = "Scanner Warning"
+                error_msg = result.error
                 if "not found" in result.error.lower():
                     error_msg = "Not Installed"
+                
                 console.print(f"  {status} [bold]{result.scanner:14}[/bold] [yellow]{error_msg}[/yellow]")
+                
+                # Help text for timeouts
+                if "timeout" in result.error.lower():
+                    console.print(f"     [dim]└─ Project is too large for default timeout. Use --no-code for speed.[/dim]")
             elif result.found > 0 or result.severity_counts:
                 status = "❌ " if result.found > 0 else "✅ "
                 counts = result.severity_counts or {}

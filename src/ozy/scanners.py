@@ -138,9 +138,9 @@ class DepsScanner(Scanner):
             )
 
         except subprocess.TimeoutExpired:
-            return ScanResult(scanner=self.name, found=0, error="Timeout expired")
+            return ScanResult(scanner=self.name, found=0, error="Timeout")
         except Exception as e:
-            return ScanResult(scanner=self.name, found=0, error=str(e))
+            return ScanResult(scanner=self.name, found=0, error=f"Error: {str(e)}")
 
 
 class CodeScanner(Scanner):
@@ -171,7 +171,7 @@ class CodeScanner(Scanner):
                 ],
                 capture_output=True,
                 text=True,
-                timeout=60,
+                timeout=120,
             )
 
             issues = []
