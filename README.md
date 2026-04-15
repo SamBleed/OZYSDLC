@@ -8,6 +8,8 @@ OzySDLC is a CLI tool that runs automated security scans on your project:
 * 📦 **Dependencies** — Find vulnerable packages in your dependencies
 * 🧪 **Code** — Static analysis for common security issues
 
+> Fast, simple and practical DevSecOps scanning from your terminal.
+
 ---
 
 ## 🚀 Quick Start
@@ -32,9 +34,7 @@ pip install ozy-sdlc
 ```bash
 git clone https://github.com/ozysdlc/ozysdlc.git
 cd ozysdlc
-pip install -r requirements.txt
-# For development:
-pip install -r requirements-dev.txt
+pip install -e .
 ```
 
 ---
@@ -121,7 +121,7 @@ For full functionality, install:
 
 ## 🎯 Philosophy
 
-> Verify every stage of your software development lifecycle.
+> Verify every stage. Trust nothing by default.
 
 ---
 
