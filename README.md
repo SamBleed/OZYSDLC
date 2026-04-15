@@ -32,7 +32,9 @@ pip install ozy-sdlc
 ```bash
 git clone https://github.com/ozysdlc/ozysdlc.git
 cd ozysdlc
-pip install -e .
+pip install -r requirements.txt
+# For development:
+pip install -r requirements-dev.txt
 ```
 
 ---
@@ -52,8 +54,18 @@ ozy run . --json
 # Save to file
 ozy run . --output results.json
 
-# Skip specific scanners
+# Skip specific scanners (--no-code recommended for large projects)
 ozy run . --no-secrets --no-deps --no-code
+```
+
+---
+
+## ⚠️ Note on Semgrep
+
+Semgrep can be slow on large projects (>30s). For faster scans, use:
+
+```bash
+ozy run . --no-code
 ```
 
 ---

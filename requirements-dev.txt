@@ -1,0 +1,8 @@
+# OzySDLC development dependencies
+# Install with: pip install -r requirements-dev.txt
+
+# Testing
+pytest>=8.0.0
+
+# Development tools
+ruff>=0.4.0
