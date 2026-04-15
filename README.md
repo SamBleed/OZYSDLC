@@ -1,37 +1,43 @@
 # OzySDLC
 
-> Secure SDLC Pipeline - Scan your code for security vulnerabilities in seconds.
+**Secure SDLC Pipeline — Scan your code for security vulnerabilities in seconds.**
 
-OzySDLC is a CLI tool that runs security scans on your project:
-- **Secrets** - Detect API keys, tokens, passwords in your code
-- **Dependencies** - Find vulnerable packages in your dependencies  
-- **Code** - Static analysis for common security issues
+OzySDLC is a CLI tool that runs automated security scans on your project:
 
-## Quick Start
+* 🔐 **Secrets** — Detect API keys, tokens, passwords in your code
+* 📦 **Dependencies** — Find vulnerable packages in your dependencies
+* 🧪 **Code** — Static analysis for common security issues
+
+---
+
+## 🚀 Quick Start
 
 ```bash
-# Install
 pip install ozy-sdlc
-
-# Run scan
 ozy run .
 ```
 
-## Installation
+---
+
+## 📦 Installation
 
 ### From PyPI (recommended)
+
 ```bash
 pip install ozy-sdlc
 ```
 
 ### From source
+
 ```bash
 git clone https://github.com/ozysdlc/ozysdlc.git
 cd ozysdlc
 pip install -e .
 ```
 
-## Usage
+---
+
+## ⚙️ Usage
 
 ```bash
 # Scan current directory
@@ -47,38 +53,66 @@ ozy run . --json
 ozy run . --output results.json
 
 # Skip specific scanners
-ozy run . --no-secrets --no-code
+ozy run . --no-secrets --no-deps --no-code
 ```
 
-## Exit Codes
+---
 
-| Code | Meaning |
-|------|---------|
-| `0` | No vulnerabilities found (clean) |
-| `1` | Vulnerabilities detected |
-| `2` | Execution error (tool missing, invalid path, etc.) |
+## 📊 Example Output
 
-## Requirements
+```text
+🚨 OZYSDLC REPORT
 
-Install these tools for full functionality:
+Secrets        ❌ 2
+Dependencies   ⚠️ 5
+Code Issues    ⚠️ 3
 
-- [gitleaks](https://github.com/zricethezav/gitleaks) - Secrets detection
-- [trivy](https://aquasecurity.github.io/trivy/) - Dependency scanning
-- [semgrep](https://semgrep.dev/) - Static code analysis
+Risk Score: HIGH 🔴
+```
 
-> Note: OzySDLC works even if tools are missing (shows warnings)
+---
 
-## Options
+## 🚦 Exit Codes
+
+| Code | Meaning                                            |
+| ---- | -------------------------------------------------- |
+| 0    | No vulnerabilities found (clean)                   |
+| 1    | Vulnerabilities detected                           |
+| 2    | Execution error (tool missing, invalid path, etc.) |
+
+---
+
+## 🧰 Requirements
+
+For full functionality, install:
+
+* **gitleaks** — Secrets detection
+* **trivy** — Dependency scanning
+* **semgrep** — Static code analysis
+
+> OzySDLC still runs if tools are missing (warnings will be shown)
+
+---
+
+## ⚙️ Options
 
 ```
 --no-secrets     Skip secrets scanning
---no-deps       Skip dependency scanning
---no-code       Skip code analysis
--v, --verbose   Show detailed output
---json          Output JSON to stdout
---output FILE   Write output to file
+--no-deps        Skip dependency scanning
+--no-code        Skip code analysis
+-v, --verbose    Show detailed output
+--json           Output JSON to stdout
+--output FILE    Write output to file
 ```
 
-## License
+---
+
+## 🎯 Philosophy
+
+> Verify every stage of your software development lifecycle.
+
+---
+
+## 📄 License
 
 MIT
