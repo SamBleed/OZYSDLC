@@ -58,8 +58,11 @@ class ConsoleReporter(Reporter):
         for result in results:
             if result.error:
                 status = "⚠️ "
-                count = "Error"
-                console.print(f"  {status} [bold]{result.scanner:14}[/bold] {count}")
+                # Improved error reporting for UX
+                error_msg = "Scanner Warning"
+                if "not found" in result.error.lower():
+                    error_msg = "Not Installed"
+                console.print(f"  {status} [bold]{result.scanner:14}[/bold] [yellow]{error_msg}[/yellow]")
             elif result.found > 0 or result.severity_counts:
                 status = "❌ " if result.found > 0 else "✅ "
                 counts = result.severity_counts or {}

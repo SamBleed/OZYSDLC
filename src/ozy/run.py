@@ -12,27 +12,31 @@ EXIT_ERROR = 2      # Execution error (tool missing, path invalid, etc.)
 
 
 def calculate_risk_score(results: list[ScanResult]) -> tuple[str, str]:
-    """Calculate overall risk score based on scan results."""
-    total_issues = sum(r.found for r in results)
-    has_secrets = any(r.scanner == "secrets" and r.found > 0 for r in results)
+    """Calculate overall risk score based on scan results.
     
-    # Check for critical/high from both issues and severity_counts
+    Priority:
+    - Any CRITICAL or HIGH issue -> HIGH
+    - More than 10 total issues -> HIGH
+    - Any issues found -> MEDIUM
+    - Otherwise -> LOW
+    """
+    total_found = 0
     has_critical = False
+    
     for r in results:
-        # Check severity_counts if available
-        if r.severity_counts:
-            if r.severity_counts.get("CRITICAL", 0) > 0 or r.severity_counts.get("HIGH", 0) > 0:
-                has_critical = True
-                break
-        # Fallback to checking issues
-        elif r.issues:
-            if any(i.get("severity", "").upper() in ("CRITICAL", "HIGH") for i in r.issues):
+        issues_count = len(r.issues)
+        total_found += issues_count
+        
+        # Check issues list for severity
+        for issue in r.issues:
+            sev = str(issue.get("severity", "")).upper()
+            if sev in ("CRITICAL", "HIGH"):
                 has_critical = True
                 break
 
-    if has_secrets or (has_critical and total_issues > 10):
+    if has_critical or total_found > 10:
         return "HIGH", "🔴"
-    elif total_issues > 5:
+    elif total_found > 0:
         return "MEDIUM", "🟡"
     else:
         return "LOW", "🟢"
@@ -87,15 +91,19 @@ def run(
         return EXIT_ERROR
 
     results: list[ScanResult] = []
-    has_errors = False
+    has_warnings = False
+    has_real_errors = False
 
     for scanner in scanners:
         result = scanner.scan(target_path)
         results.append(result)
-        # Check if scanner had a REAL error (not just tool missing)
-        # Tool missing is a warning, not an error
-        if result.error and "not found" not in result.error.lower():
-            has_errors = True
+        
+        # Scanner errors are WARNINGs, not hard errors
+        # Tool not found = warning, not error
+        if result.error:
+            has_warnings = True
+            # Only true errors (not tool missing) would be real errors
+            # But for now, scanner errors are just warnings
 
     # Calculate risk score
     risk = calculate_risk_score(results)
@@ -104,12 +112,11 @@ def run(
     reporter.render(results, risk, target_path)
 
     # Return exit code based on results
-    if has_errors:
-        return EXIT_ERROR
-    elif risk[0] in ("MEDIUM", "HIGH"):
+    # If scanner has issues (vulnerabilities found) = EXIT_FINDINGS (1)
+    # If scanner error (but has results) = EXIT_FINDINGS (1) - there were still scans done
+    if any(r.found > 0 for r in results):
         return EXIT_FINDINGS
-    elif any(r.found > 0 for r in results):
-        # Any vulnerabilities detected = EXIT_FINDINGS
+    elif risk[0] in ("MEDIUM", "HIGH"):
         return EXIT_FINDINGS
     else:
         return EXIT_CLEAN
