@@ -2,13 +2,17 @@
 
 **Secure SDLC Pipeline — Scan your code for security vulnerabilities in seconds.**
 
-OzySDLC is a CLI tool that runs automated security scans on your project:
-
-* 🔐 **Secrets** — Detect API keys, tokens, passwords in your code
-* 📦 **Dependencies** — Find vulnerable packages in your dependencies
-* 🧪 **Code** — Static analysis for common security issues
-
 > Fast, simple and practical DevSecOps scanning from your terminal.
+
+---
+
+## 🔐 What it does
+
+OzySDLC runs automated security scans on your project:
+
+* 🔐 **Secrets** — Detect API keys, tokens, passwords
+* 📦 **Dependencies** — Find vulnerable packages
+* 🧪 **Code** — Static analysis for common security issues
 
 ---
 
@@ -62,7 +66,9 @@ ozy run . --no-secrets --no-deps --no-code
 
 ## ⚠️ Note on Semgrep
 
-Semgrep can be slow on large projects (>30s). For faster scans, use:
+Semgrep can be slow on large projects (>30s).
+
+For faster scans:
 
 ```bash
 ozy run . --no-code
@@ -86,17 +92,17 @@ Risk Score: HIGH 🔴
 
 ## 🚦 Exit Codes
 
-| Code | Meaning                                            |
-| ---- | -------------------------------------------------- |
-| 0    | No vulnerabilities found (clean)                   |
-| 1    | Vulnerabilities detected                           |
-| 2    | Execution error (tool missing, invalid path, etc.) |
+| Code | Meaning                          |
+| ---- | -------------------------------- |
+| 0    | No vulnerabilities found (clean) |
+| 1    | Vulnerabilities detected         |
+| 2    | Execution error                  |
 
 ---
 
 ## 🧰 Requirements
 
-For full functionality, install:
+For full functionality:
 
 * **gitleaks** — Secrets detection
 * **trivy** — Dependency scanning
