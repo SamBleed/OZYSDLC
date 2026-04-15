@@ -165,11 +165,13 @@ class CodeScanner(Scanner):
                     "auto",
                     "--json",
                     "--quiet",
+                    "--max-memory",
+                    "512",
                     str(path),
                 ],
                 capture_output=True,
                 text=True,
-                timeout=300,
+                timeout=60,
             )
 
             issues = []
