@@ -69,25 +69,24 @@ class ConsoleReporter(Reporter):
                 medium = counts.get("MEDIUM", 0)
                 count = f"🔴{critical} 🟠{high} 🟡{medium}"
                 console.print(f"  {status} [bold]{result.scanner:14}[/bold] {count}")
+                
+                # Show brief issue details (package/name + CVE)
+                if result.issues:
+                    console.print(f"  [dim]Issues:[/dim]")
+                    for issue in result.issues[:5]:  # Show first 5
+                        severity = issue.get("severity", "UNKNOWN")
+                        sev_emoji = "🔴" if severity.upper() in ("CRITICAL", "HIGH") else "🟡"
+                        issue_id = issue.get("id", "?")
+                        package = issue.get("package", "")
+                        title = issue.get("title", "")[:50]
+                        if package:
+                            console.print(f"    {sev_emoji} {package}: {issue_id}")
+                        else:
+                            console.print(f"    {sev_emoji} {issue_id} - {title}...")
             else:
                 status = "✅ "
                 count = "0"
                 console.print(f"  {status} [bold]{result.scanner:14}[/bold] {count}")
-
-        # Show detailed results if verbose
-        if self.verbose:
-            for result in results:
-                if result.issues:
-                    console.print(f"\n[bold]{result.scanner.upper()} ISSUES:[/bold]")
-                    for issue in result.issues[:10]:
-                        severity = issue.get("severity", "UNKNOWN")
-                        severity_emoji = (
-                            "🔴"
-                            if severity.upper() in ("CRITICAL", "HIGH")
-                            else "🟡"
-                        )
-                        title = issue.get("title", issue.get("id", "Unknown"))
-                        console.print(f"  {severity_emoji} {title}")
 
         # Print risk score
         risk_level, risk_emoji = risk
@@ -105,6 +104,30 @@ class ConsoleReporter(Reporter):
                 expand=False,
             )
         )
+
+        # Show very detailed results if verbose (file paths, full messages)
+        if self.verbose:
+            for result in results:
+                if result.issues:
+                    console.print(f"\n[bold]{result.scanner.upper()} DETAILS:[/bold]")
+                    for issue in result.issues:
+                        severity = issue.get("severity", "UNKNOWN")
+                        severity_emoji = (
+                            "🔴"
+                            if severity.upper() in ("CRITICAL", "HIGH")
+                            else "🟡"
+                        )
+                        issue_id = issue.get("id", "?")
+                        title = issue.get("title", issue.get("id", "Unknown"))
+                        file_path = issue.get("file", "")
+                        package = issue.get("package", "")
+                        console.print(f"  {severity_emoji} {issue_id}")
+                        if package:
+                            console.print(f"     Package: {package}")
+                        if file_path:
+                            console.print(f"     File: {file_path}")
+                        console.print(f"     Title: {title}")
+                        console.print()
 
 
 class JsonReporter(Reporter):

@@ -3,7 +3,7 @@ requires = ["hatchling"]
 build-backend = "hatchling.build"
 
 [project]
-name = "ozy"
+name = "ozy-sdlc"
 version = "0.1.0"
 description = "Secure SDLC Pipeline - CLI for security scanning"
 readme = "README.md"
@@ -17,8 +17,9 @@ classifiers = [
     "Programming Language :: Python :: 3.10",
     "Programming Language :: Python :: 3.11",
     "Programming Language :: Python :: 3.12",
+    "License :: OSI Approved :: MIT License",
+    "Topic :: Security",
 ]
-
 dependencies = [
     "click>=8.1.0",
     "rich>=13.0.0",
@@ -27,6 +28,11 @@ dependencies = [
 
 [project.scripts]
 ozy = "ozy.cli:main"
+
+[project.urls]
+Homepage = "https://github.com/SamBleed/OZYSDLC"
+Repository = "https://github.com/SamBleed/OZYSDLC"
+Issues = "https://github.com/SamBleed/OZYSDLC/issues"
 
 [tool.hatch.build.targets.wheel]
 packages = ["src/ozy"]
