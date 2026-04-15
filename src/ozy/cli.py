@@ -9,6 +9,15 @@ from ozy import __version__
 from ozy.run import EXIT_CLEAN, EXIT_ERROR, EXIT_FINDINGS, run
 
 
+def check_installation():
+    """Check if OzySDLC is properly installed."""
+    try:
+        import ozy
+        return True
+    except ImportError:
+        return False
+
+
 @click.group()
 @click.version_option(version=__version__)
 def main():

@@ -41,6 +41,30 @@ cd ozysdlc
 pip install -e .
 ```
 
+### Arch Linux
+
+```bash
+# Using pipx (recommended)
+pipx install ozy-sdlc
+
+# Or with aur (if available)
+yay -S python-ozysdlc
+```
+
+### Troubleshooting
+
+**Error: "externally-managed-environment"**
+
+```bash
+# Use pipx (recommended)
+pipx install ozy-sdlc
+
+# Or create a virtual environment
+python -m venv venv
+source venv/bin/activate
+pip install ozy-sdlc
+```
+
 ---
 
 ## ⚙️ Usage
