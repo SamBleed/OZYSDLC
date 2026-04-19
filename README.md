@@ -1,22 +1,37 @@
 # OzySDLC
 
+[![Status](https://img.shields.io/badge/status-Alpha-yellow)](https://github.com/SamBleed/OZYSDLC)
+[![License](https://img.shields.io/badge/license-MIT-blue)](LICENSE)
+[![PyPI](https://img.shields.io/pypi/v/ozy-sdlc)](https://pypi.org/project/ozy-sdlc/)
+
 **Secure SDLC Pipeline — Scan your code for security vulnerabilities in seconds.**
 
 > Fast, simple and practical DevSecOps scanning from your terminal.
 
 ---
 
-## 🔐 What it does
+## 📋 Índice
+- [¿Qué hace?](#-qué-hace)
+- [Inicio rápido](#-inicio-rápido)
+- [Instalación](#-instalación)
+- [Uso](#-uso)
+- [Estado del proyecto](#-estado-del-proyecto)
+- [Contribuir](#-contribuir)
+- [Licencia](#-licencia)
+
+---
+
+## 🔐 ¿Qué hace?
 
 OzySDLC runs automated security scans on your project:
 
 * 🔐 **Secrets** — Detect API keys, tokens, passwords
 * 📦 **Dependencies** — Find vulnerable packages
-* 🧪 **Code** — Static analysis for common security issues
+* 🧪 **Code** — Static analysis for common security issues 
 
 ---
 
-## 🚀 Quick Start
+## 🚀 Inicio rápido
 
 ```bash
 pip install ozy-sdlc
@@ -25,7 +40,7 @@ ozy run .
 
 ---
 
-## 📦 Installation
+## 📦 Instalación
 
 ### From PyPI (recommended)
 
@@ -67,7 +82,7 @@ pip install ozy-sdlc
 
 ---
 
-## ⚙️ Usage
+## ⚙️ Uso
 
 ```bash
 # Scan current directory
@@ -155,6 +170,24 @@ For full functionality:
 
 ---
 
-## 📄 License
+## 📊 Estado del proyecto
+
+Este proyecto está en estado **Alpha**.  Las funcionalidades principales están implementadas, pero pueden haber cambios importantes en futuras versiones. No se recomienda para producción.
+
+---
+
+## 🤝 Contribuir
+
+¡Bienvenido/a a contribuir! Por favor, sigue estos pasos:
+1. Haz un *fork* del repositorio.
+2. Crea una rama (`git checkout -b feature/nueva-funcionalidad`).
+3. Haz tus cambios y *commits* (`git commit -am 'Añade nueva funcionalidad'`).
+4. Haz *push* a la rama (`git push origin feature/nueva-funcionalidad`).
+5. Abre un *Pull Request*.
+
+---
+
+## 📄 Licencia
 
 MIT
+
